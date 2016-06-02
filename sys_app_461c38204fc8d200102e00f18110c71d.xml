@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_app">
+    <sys_app action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <enforce_license>log</enforce_license>
+        <js_level/>
+        <licensable>true</licensable>
+        <logo/>
+        <menu display_value="ToDoNOW">121c34604fc8d200102e00f18110c7bb</menu>
+        <name>ToDoNOW</name>
+        <private>false</private>
+        <restrict_table_access>false</restrict_table_access>
+        <runtime_access_tracking/>
+        <scope>x_9187_todo</scope>
+        <scoped_administration>false</scoped_administration>
+        <short_description> Simple ToDO  Application which interacts with Wunderlist using REST API.</short_description>
+        <source>x_9187_todo</source>
+        <store_correlation_id/>
+        <store_url/>
+        <sys_class_name>sys_app</sys_class_name>
+        <sys_code/>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2015-11-27 07:19:55</sys_created_on>
+        <sys_id>461c38204fc8d200102e00f18110c71d</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2016-01-31 08:14:19</sys_updated_on>
+        <template/>
+        <trackable>true</trackable>
+        <user_role display_value="x_9187_todo.user" name="x_9187_todo.user">d61c34604fc8d200102e00f18110c7bb</user_role>
+        <vendor/>
+        <vendor_prefix/>
+        <version>1.0</version>
+    </sys_app>
+</record_update>

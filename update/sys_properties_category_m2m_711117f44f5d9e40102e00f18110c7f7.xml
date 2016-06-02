@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_properties_category_m2m">
+    <sys_properties_category_m2m action="INSERT_OR_UPDATE">
+        <category display_value="Wunderlist(TODO)">2ed01b384f5d9e40102e00f18110c7ae</category>
+        <order>100</order>
+        <property display_value="x_9187_todo.wl_client_id" name="x_9187_todo.wl_client_id">db69e4214f0c1600102e00f18110c7f0</property>
+        <sys_class_name>sys_properties_category_m2m</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2016-01-29 16:07:50</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>711117f44f5d9e40102e00f18110c7f7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_9187_todo.wl_client_id.Wunderlist(TODO)</sys_name>
+        <sys_package display_value="ToDoNOW" source="x_9187_todo">461c38204fc8d200102e00f18110c71d</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="ToDoNOW">461c38204fc8d200102e00f18110c71d</sys_scope>
+        <sys_update_name>sys_properties_category_m2m_711117f44f5d9e40102e00f18110c7f7</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2016-01-29 16:07:50</sys_updated_on>
+    </sys_properties_category_m2m>
+</record_update>

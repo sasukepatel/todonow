@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script/>
+        <description>it contains list of TODOs. also contains code for Modal window.</description>
+        <direct>true</direct>
+        <endpoint>x_9187_todo_tasks.do</endpoint>
+        <html><![CDATA[<hr/>	
+<form  name ="addtask" ng-submit="tasks.addTask()">
+<div class="form-horizontal">
+	<div class="form-group">
+	<div class="input-group">
+      <div class="input-group-addon"><i class="fa fa-plus"></i></div>
+	<input class="form-control input-lg" ng-model="tasks.newTask.title" required="true"  type="text" placeholder="Add a todo..."></input>
+	
+		<div class="input-group-addon"><button type="submit" class="btn btn-primary">Add</button></div>
+		
+		</div>
+		</div>
+</div>
+</form>
+<hr/>
+<div ng-show="tasks.errortasksload"  class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">X</span></button>
+  <strong>Aww..Snap!!</strong> Some Error occured!Please Try Again.</div>
+
+<hr/>
+<div class="well well-sm" ng-repeat="task in tasks.tasks" style="margin-bottom:2px;" >
+		<div tabindex='-1' ><input ng-click="tasks.toggleCompleted(task.id,task.revision,task.completed)" type="checkbox"></input>
+			<span style="padding-left:10px"><a ng-click="tasks.open(task.id,task.revision)">{{task.title}}</a></span> 
+				<span class="pull-right" ng-click="tasks.toggleStarred(task.id,task.revision,task.starred)"><i ng-show="!task.starred" class="fa fa-star-o fa-2x"></i><i ng-show="task.starred" class="fa fa-star fa-2x"></i></span></div>
+	</div>
+
+<!--****Completed Tasks***-->
+<button id="completedtodo" class="btn btn-success btn-xs" ng-click="tasks.showCompletedTasks()" style="margin:8px 0px 6px 0px">Show Completed To-dos<span style="padding-left:7px;"></span><span ng-if="tasks.showcompleted" class="glyphicon glyphicon-hand-up"></span><span ng-if="!tasks.showcompleted" class="glyphicon glyphicon-hand-down"></span></button>
+<div ng-if="tasks.showcompleted">
+	<div ng-show="todo.errorcomptaskload"  class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">X</span></button>
+  <strong>Aww..Snap!!</strong> Some Error occured!Please Try Again.</div>
+<div class="well well-sm completed" ng-repeat="task in tasks.completedtasks" style="margin-bottom:2px;" >
+		<div tabindex='-1' ><input ng-click="tasks.toggleCompleted(task.id,task.revision,task.completed)" type="checkbox" checked="true"></input>
+			<span style="padding-left:10px"><a ng-click="tasks.open(task.id,task.revision)" >{{task.title}}</a></span> 
+				<span class="pull-right" ng-click="tasks.toggleStarred(task.id,task.revision,task.starred)"><i ng-show="!task.starred" class="fa fa-star-o fa-2x"></i><i ng-show="task.starred" class="fa fa-star fa-2x"></i></span></div>
+	</div>
+</div>
+
+	
+		 <!--****************************MODAL CODE STARTS ***************************** -->
+		
+		<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit  - {{todo.task.title}}</h3>
+
+			<div ng-show="todo.errorfetchtask"  class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">X</span></button>
+  <strong>Aww..Snap!!</strong> Some error occured while fetching the data.Close and Open again!</div>
+        
+			<div ng-show="todo.errordeletetask"  class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">X</span></button>
+  <strong>Aww..Snap!!</strong> Some Error occured! Try to Delete Again!</div>
+		<div ng-show="todo.errorupdatetask"  class="alert alert-danger" role="alert">
+  <strong>Aww..Snap!!</strong> Someone updated The Task or Error While updating.Try Again!</div>
+       
+</div>
+        <div class="modal-body">
+			
+      
+ <form class="form-horizontal">
+  <div class="form-group">
+    <label  class="col-sm-2 control-label label label-info" style="margin-top:3px"><span style="font-size:12px">To Do</span></label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="title" placeholder="What's in your mind??!" ng-model="todo.task.title" value="{{todo.task.title}}"></input>
+    </div>
+  </div>
+  <div class="form-group">
+    <label  class="col-sm-2 control-label label label-info" style="margin-top:3px"><span style="font-size:12px">Created At</span></label>
+    <div class="col-sm-10">
+      <label  class="control-label">{{todo.task.created_at}}</label>
+    </div>
+  </div>
+	  <div class="form-group">
+		  <label  class="col-sm-2 control-label label label-info" style="margin-top:3px"><span style="font-size:12px">Due Date</span></label>
+    <div class="col-sm-10">
+      <p class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="dd.MM.yyyy" ng-model="todo.task.due_date" is-open="todo.opened" min-date="todo.minDate"    close-text="Close"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="todo.opendatepicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+    </div>
+  </div>
+	 
+	 	  <div class="form-group">
+		  <label  class="col-sm-2 control-label label label-info" style="margin-top:3px"><span style="font-size:12px">Completed</span></label>
+    <div class="col-sm-10">
+		<input type="checkbox" ng-model="todo.task.completed"></input>
+    </div>
+  </div>
+	
+	  </form>
+        </div>
+        <div class="modal-footer">
+			<button class="btn btn-danger" type="button" ng-click="todo.delete()">Delete</button>
+            <button class="btn btn-primary" type="button" ng-click="todo.update()">Update</button>
+            <button class="btn btn-warning" type="button" ng-click="todo.cancel()">Cancel</button>
+        </div>
+    </script>
+
+  
+
+
+
+]]></html>
+        <name>tasks</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2015-12-05 10:17:03</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>f941368f4f089600102e00f18110c7ee</sys_id>
+        <sys_mod_count>211</sys_mod_count>
+        <sys_name>tasks</sys_name>
+        <sys_package display_value="ToDoNOW" source="x_9187_todo">461c38204fc8d200102e00f18110c71d</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="ToDoNOW">461c38204fc8d200102e00f18110c71d</sys_scope>
+        <sys_update_name>sys_ui_page_f941368f4f089600102e00f18110c7ee</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2016-01-29 16:57:38</sys_updated_on>
+    </sys_ui_page>
+</record_update>

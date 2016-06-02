@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_script">
+    <sys_ui_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <description/>
+        <global>false</global>
+        <name>x_9187_todo.taskServices</name>
+        <script><![CDATA[angular.module('taskServices',[])
+
+.factory('taskService',function($http){
+	var taskFactory = {};
+
+	//pass only data.....result contains header information etc.   we dont need it.
+	function getData(result){
+		return result.data;
+	}
+	
+	//common function to generate url
+	function generateURL(Url,params){
+		
+		var finalurl = Url + '?';
+		for(var i = 0; i<params.length;i++){
+			finalurl = finalurl + params[i] + '=' + params[i+1];
+			if(i != (params.length-2)){
+				finalurl = finalurl + '&';
+			}
+			i++;
+		}
+		return finalurl;
+			
+	}
+		//GET all Tasks
+		taskFactory.getAllTasks = function(listid){
+			//set params array with combination of  key-pair
+			var params = ['list_id',listid];
+			
+			//pass URL and parms to generateURL function.
+	    	var url  = 	generateURL('https://a.wunderlist.com/api/v1/tasks',params);
+			
+			return $http.get(url,{
+				headers: {  	
+				//authorization headers are set during config phase. no need to set here.
+			}
+				
+				
+			}).then(getData);
+		};
+	
+	//GET completed Tasks
+	taskFactory.getCompletedTasks = function(listid){
+			//set params array with combination of  key-pair
+			var params = ['completed',true,'list_id',listid];
+			
+			//pass URL and parms to generateURL function.
+		    var url  = 	generateURL('https://a.wunderlist.com/api/v1/tasks',params);
+			
+			return $http.get(url,{
+				headers: {  	
+				//authorization headers are set during config phase. no need to set here.
+			}
+				
+			}).then(getData);
+			
+		};
+	
+
+		//CREATE new Task
+		taskFactory.createNewTask = function (listid,Taskdata){
+			        
+           var id = parseInt(listid);
+			
+			return $http({
+             url: 'https://a.wunderlist.com/api/v1/tasks',
+             method: "POST",
+		     headers: {'Content-Type': 'application/json,charset=utf-8'},
+             data: {
+		     	list_id :id,
+			    title:Taskdata.title
+		           }
+              }).then(getData); //it will return a Promise which will be resolved in the controller.
+		
+	    };
+	
+	    //GET A SINGLE TASK
+    	taskFactory.getTask = function (taskId){
+			
+		var url  = 	'https://a.wunderlist.com/api/v1/tasks/' + taskId;
+			console.log(taskId);
+			return $http.get(url,{
+				headers: {  	
+				//authorization headers are set during config phase. no need to set here.
+			}
+				
+				
+			}).then(getData);
+		
+	};
+	
+	//UPDATE A Task
+	taskFactory.updateTask = function (taskid,Taskdata){
+			        
+           var id = parseInt(taskid);
+			
+			return $http({
+             url: 'https://a.wunderlist.com/api/v1/tasks/'+id,
+             method: "PATCH",
+		     headers: {'Content-Type': 'application/json,charset=utf-8'},
+             data: {
+		    	revision:Taskdata.revision,
+		    	title:Taskdata.title,
+		    	completed:Taskdata.completed,
+		    	due_date:Taskdata.due_date,
+		    	starred:Taskdata.starred,
+			
+	            	}
+            }).then(getData); //it will return a Promise which will be resolved in the controller.
+		
+		};
+	
+	//DELETE A TASK
+	taskFactory.deleteTask = function (taskid,revisionId){
+			   var params = ['revision',revisionId];
+               var id = parseInt(taskid);
+		       var tempurl = 'https://a.wunderlist.com/api/v1/tasks/'+id;
+		       var url = generateURL(tempurl,params);
+			   
+		   return $http({
+            url:url,
+            method: "DELETE",
+		    headers: {'Content-Type': 'application/json,charset=utf-8'}
+     
+          }); 
+		
+		};
+	
+	
+	return taskFactory;
+})
+;]]></script>
+        <script_name>taskServices</script_name>
+        <sys_class_name>sys_ui_script</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2015-12-05 12:38:30</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>813197c74f489600102e00f18110c766</sys_id>
+        <sys_mod_count>58</sys_mod_count>
+        <sys_name>x_9187_todo.taskServices</sys_name>
+        <sys_package display_value="ToDoNOW" source="x_9187_todo">461c38204fc8d200102e00f18110c71d</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="ToDoNOW">461c38204fc8d200102e00f18110c71d</sys_scope>
+        <sys_update_name>sys_ui_script_813197c74f489600102e00f18110c766</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2016-01-29 12:54:22</sys_updated_on>
+        <use_scoped_format>false</use_scoped_format>
+    </sys_ui_script>
+</record_update>

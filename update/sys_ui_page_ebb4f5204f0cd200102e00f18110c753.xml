@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script/>
+        <description>index page of our app. just like servicenow top window with left nav. &#13;
+everything loads inside it.</description>
+        <direct>true</direct>
+        <endpoint>x_9187_todo_main.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+<title>ToDoNOW App!</title>
+	
+	  <head>
+		  <meta charset="utf-8"></meta>
+			  <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+			  <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+
+		  <!-- ***Jquery*** -->
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		  
+		  <!-- ***Bootstrap.min.JS*** -->
+		  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		
+		  <!--  ***BOOTSTRAP CSS*** -->
+   		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></link>
+		
+		  <!-- ***Load Font Awsme*** -->
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></link>
+		 
+		  <!-- ***AngularJS*** -->
+		  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+		  <!-- ***Anglar UI-Router*** -->
+		  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+ <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.0.0.js"></script>
+		
+		  
+		 <!--  **********LOAD ALL STYLE SHEETS********** -->
+		  <g:evaluate object="true">
+    var stylesheets = [
+                       //NAMES OF STYLE RECORDS
+                       "basicTheme.css",
+					   "newnav.css"
+                       
+                      ];
+		
+    var csslinks = [];
+    for(var key in stylesheets){
+      var css = new GlideRecord("content_css");
+      css.addQuery("name", stylesheets[key]);
+      css.query()
+      css.next();
+      csslinks.push(css.sys_id+".cssdbx?ver="+css.sys_updated_on);
+    }
+  </g:evaluate>
+		 
+  <j:forEach var="jvar_link" items="${csslinks}">
+    <link href="${jvar_link}" rel="stylesheet" type="text/css"/>
+  </j:forEach>
+		  
+		  
+		  <!-- **************LOAD ALL UI SCRIPTS************** -->
+		  		  <g:evaluate object="true">
+    var uiscripts = [
+                       //NAMES OF UI SCRIPTS RECORDS
+                       "x_9187_todo.userlistService.jsdbx",
+					   "x_9187_todo.taskServices.jsdbx",
+					   "x_9187_todo.homeCtrl.jsdbx",
+					   "x_9187_todo.tasksCtrl.jsdbx",
+					   "x_9187_todo.mainCtrl.jsdbx",
+					   "x_9187_todo.wunderlistapp.jsdbx"
+                       
+                      ];
+    var updatedon = [];
+			var start=0;		  
+    for(var key in uiscripts){
+      var script = new GlideRecord("sys_ui_script");
+				var name = 	  uiscripts[key].split('.')[0] +'.'+ uiscripts[key].split('.')[1];
+      script.addQuery("name",name);
+      script.query();
+      script.next();
+      updatedon.push(script.getValue('sys_updated_on'));
+    }
+  </g:evaluate>
+	 
+		  
+           <g:requires name="${uiscripts[0]}" params="cache=${updatedon[0]}" />
+		   <g:requires name="${uiscripts[1]}" params="cache=${updatedon[1]}" />
+		   <g:requires name="${uiscripts[2]}" params="cache=${updatedon[2]}" />
+		   <g:requires name="${uiscripts[3]}" params="cache=${updatedon[3]}" />
+		   <g:requires name="${uiscripts[4]}" params="cache=${updatedon[4]}" />
+		   <g:requires name="${uiscripts[5]}" params="cache=${updatedon[5]}" />
+		  
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+	
+	<body ng-app="wunderlist">
+		<div ng-controller="mainController as main">
+	    <nav class="navbar navbar-inverse sidebar" role="navigation">
+    <div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" ui-sref="home">ToDoNOW</a>
+		</div>
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a ui-sref="home">Home<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+				<li style="display:relative">
+					<a class="tooltips">Profile<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span><span class="tooltoptext"><strong>{{main.user.name}}</strong><hr/>Email:{{main.user.email}}</span></a>
+				
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Lists <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-list"></span></a>
+					<ul class="dropdown-menu forAnimate" role="menu">
+					<li ui-sref-active="myselected" ng-repeat= "list in main.lists">
+                    <a ui-sref="list({listId:list.id})">{{list.title}}</a>
+                </li>
+					</ul>
+				</li>
+				
+			</ul>
+		
+		</div>
+		
+		
+	</div>
+</nav>
+			<!-- *****Content Starts****** -->
+<div class = "main">
+	
+	<ui-view>
+	</ui-view>
+	
+			</div>
+			
+		</div>
+		
+	</body>
+	</j:jelly>]]></html>
+        <name>main</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2015-11-27 11:27:54</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>ebb4f5204f0cd200102e00f18110c753</sys_id>
+        <sys_mod_count>329</sys_mod_count>
+        <sys_name>main</sys_name>
+        <sys_package display_value="ToDoNOW" source="x_9187_todo">461c38204fc8d200102e00f18110c71d</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="ToDoNOW">461c38204fc8d200102e00f18110c71d</sys_scope>
+        <sys_update_name>sys_ui_page_ebb4f5204f0cd200102e00f18110c753</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2016-01-30 07:57:55</sys_updated_on>
+    </sys_ui_page>
+</record_update>

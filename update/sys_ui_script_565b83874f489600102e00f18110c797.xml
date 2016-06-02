@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_script">
+    <sys_ui_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <description>Controller for Task page.</description>
+        <global>false</global>
+        <name>x_9187_todo.tasksCtrl</name>
+        <script><![CDATA[angular.module('tasksCtrl',[])
+
+.controller('tasksController',function($state,$stateParams,taskService,$uibModal,$log){
+	var TASK = this;
+	TASK.newTask = {};
+	TASK.showcompleted = false;
+	
+	
+	
+	
+	//Get All Not-Completed Tasks
+ 	taskService.getAllTasks($stateParams.listId).then(function(data){
+		TASK.errortasksload = false;
+		var tasks = data;
+		tasks.sort(function(obj1,obj2){
+			return obj2.id-obj1.id;
+		});
+		TASK.tasks = tasks;
+	},function(response){
+		TASK.errortasksload = true;
+		$log.warn(response.data.error.message);
+	});
+	
+	
+	//Get All Completed Tasks
+	TASK.showCompletedTasks = function (){
+		TASK.showcompleted = !TASK.showcompleted;
+		if(!TASK.completedtasks){    //only make REST call  one time. show returned data every time
+			taskService.getCompletedTasks($stateParams.listId).then(function(data){
+				TASK.errorcomptaskload = false;
+		var tasks = data;
+		tasks.sort(function(obj1,obj2){
+			return obj2.id-obj1.id;
+		});
+		TASK.completedtasks = tasks;
+	},function(response){
+		TASK.errorcomptaskload = true;
+		$log.error(response.data.error.message);
+	});
+		
+	}
+	};
+	
+	//Mark Task Starred/Unstarred
+	TASK.toggleStarred = function(taskId,revision,starred){
+		var taskData = {
+			revision:revision,
+			starred:!starred   //reverse it
+		};
+		//inverse the task.starred and update it.
+		 taskService.updateTask(taskId,taskData).then(function(data){ 
+		 $state.go($state.current, {}, {reload: true}); //Refresh the page.
+		  
+	  },function(response){
+		  $state.go($state.current, {}, {reload: true}); //Refresh the page.
+		  $log.error(response.data.error.message);
+	  }
+	  );
+	};
+		//Mark Task Completed/Uncompleted
+	TASK.toggleCompleted = function(taskId,revision,completed){
+		var taskData = {
+			revision:revision,
+			completed:!completed   //reverse it
+		};
+		//inverse the task.starred and update it.
+		 taskService.updateTask(taskId,taskData).then(function(data){ 
+		 $state.go($state.current, {}, {reload: true}); //Refresh the page.
+		  
+	  },function(response){
+		  $state.go($state.current, {}, {reload: true}); //Refresh the page.
+		   $log.error(response.data.error.message);
+	  }
+	  );
+	};
+	
+
+	//Add new Task
+	TASK.addTask = function(){
+		
+		taskService.createNewTask($stateParams.listId,TASK.newTask).then(function(data){
+			 $state.go($state.current, {}, {reload: true}); //Refresh the page.
+			
+			TASK.newTask.title = "";
+			
+	},function(response){
+		  $log.error(response.data.error.message);
+	});
+   };
+	
+	
+  //***MODAL CODE***
+  TASK.open = function (taskid,revision) {
+
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: 'myModalContent.html',
+      controller: 'ModalInstanceCtrl as todo',
+      size: 'lg',
+      resolve: {
+        data: function () {
+			var data = {
+			taskid   : taskid,
+			revision : revision
+			};
+          return data;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (status) {
+      TASK.status = status;
+		$state.go($state.current, {}, {reload: true});
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+
+
+})
+
+
+//MODAL CONTROLLER
+.controller('ModalInstanceCtrl', function (taskService, $uibModalInstance, data,$log) {
+	var TODO = this;
+	
+	
+TODO.name = "TODODOO";
+	
+		//Get THE Task
+	 TODO.getTask = function(){
+		 taskService.getTask(data.taskid).then(function(data){
+		  //ON SUCCESS
+		  TODO.errorfetchtask = false;
+		  TODO.task = data;
+		  TODO.task.created_at = new Date( TODO.task.created_at).toString();
+		  
+	      TODO.opendatepicker = function() {
+          TODO.opened = true;
+			 
+  };
+	TODO.minDate = new Date();
+	  },function(response){
+		   $log.error(response.data.error.message);
+		  TODO.errorfetchtask = true;
+	  });
+	
+	};
+	TODO.getTask();
+	
+		
+	
+	
+	//DELETE THE TASK
+	TODO.delete = function(){
+		var sign = prompt("Please Enter 'delete' to remove this ToDo.");
+        if (sign.toLowerCase() == "delete") {
+       taskService.deleteTask(data.taskid,data.revision).then(function(){
+		   TODO.errordeletetask = false;
+		     $uibModalInstance.close("deleted");
+	   },function(response){
+		   TODO.errordeletetask = true;
+		  $log.error(response.data.error.message);
+	   });
+}
+	};
+	
+	
+	//UPDATE THE TASK
+  TODO.update = function () {
+	  taskService.updateTask(data.taskid,TODO.task).then(function(data){
+		  TODO.errorupdatetask = false;
+		   $uibModalInstance.close("updated");
+	  },function(response){
+		  
+		  TODO.errorupdatetask = true;
+		  TODO.getTask();
+		  
+		  $log.error(response.data.error.message);
+	  }
+	  );
+   
+  };
+
+  TODO.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+})
+;
+]]></script>
+        <script_name>tasksCtrl</script_name>
+        <sys_class_name>sys_ui_script</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2015-12-05 12:11:56</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>565b83874f489600102e00f18110c797</sys_id>
+        <sys_mod_count>102</sys_mod_count>
+        <sys_name>x_9187_todo.tasksCtrl</sys_name>
+        <sys_package display_value="ToDoNOW" source="x_9187_todo">461c38204fc8d200102e00f18110c71d</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="ToDoNOW">461c38204fc8d200102e00f18110c71d</sys_scope>
+        <sys_update_name>sys_ui_script_565b83874f489600102e00f18110c797</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2016-01-29 17:27:13</sys_updated_on>
+        <use_scoped_format>false</use_scoped_format>
+    </sys_ui_script>
+</record_update>

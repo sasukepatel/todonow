@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_script">
+    <sys_ui_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <description>Make API calls to WunderList</description>
+        <global>false</global>
+        <name>x_9187_todo.userlistService</name>
+        <script><![CDATA[angular.module('userlistService',[])
+
+.factory('userlistService', function($http){
+	var listFactory = {};
+	
+	//pass only data.....result contains header information etc.   we dont need it.
+	function getData(result){
+		return result.data;
+	}
+	
+	listFactory.getuser = function(){
+		return $http.get('https://a.wunderlist.com/api/v1/user',{
+			headers: {  	
+				 
+
+			}
+		}).then(getData);
+	};
+	
+	listFactory.getLists = function(){
+		return $http.get('https://a.wunderlist.com/api/v1/lists',{
+			headers: {  	
+		
+			}
+		}).then(getData);
+	};
+	listFactory.createList = function(title){
+		return $http({
+           url: 'https://a.wunderlist.com/api/v1/lists',
+           method: "POST",
+		   headers: {'Content-Type': 'application/json,charset=utf-8'},
+           data: {
+			  title :title
+		     }
+       }).then(getData); 
+	};
+	
+	return listFactory;
+});
+
+]]></script>
+        <script_name>userlistService</script_name>
+        <sys_class_name>sys_ui_script</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2015-11-30 10:39:32</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>1fe5c5294f0c1600102e00f18110c70e</sys_id>
+        <sys_mod_count>69</sys_mod_count>
+        <sys_name>x_9187_todo.userlistService</sys_name>
+        <sys_package display_value="ToDoNOW" source="x_9187_todo">461c38204fc8d200102e00f18110c71d</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="ToDoNOW">461c38204fc8d200102e00f18110c71d</sys_scope>
+        <sys_update_name>sys_ui_script_1fe5c5294f0c1600102e00f18110c70e</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2016-01-29 12:54:58</sys_updated_on>
+        <use_scoped_format>false</use_scoped_format>
+    </sys_ui_script>
+</record_update>

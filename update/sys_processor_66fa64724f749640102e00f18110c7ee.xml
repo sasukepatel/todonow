@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_processor">
+    <sys_processor action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <description>pass ClientId,instanceUrl and Client Secret to app. this Url is called from App using jQuery Ajax.</description>
+        <interactive>false</interactive>
+        <name>getAuthDetails</name>
+        <parameters/>
+        <params_endpoint/>
+        <path>getauthdetails</path>
+        <path_endpoint>x_9187_todo_getauthdetails</path_endpoint>
+        <require_csrf>false</require_csrf>
+        <roles/>
+        <script><![CDATA[(function process(g_request, g_response, g_processor) {
+
+	//We need ClientId and UserToken in order to make REST calls to Wunderlist API.
+	
+	var data = [];
+	
+	//get Instance URL
+	var instanceUrl = gs.getProperty('glide.servlet.uri');
+	    data.push(instanceUrl);
+	//get ClientID.
+	var clientID = gs.getProperty('x_9187_todo.wl_client_id');
+	    data.push(clientID);
+	
+	//get Token from users Table
+	var user = gs.getUserID();
+		
+	var gr = new GlideRecord('x_9187_todo_users');
+		if(gr.get('user',user)){
+			data.push(gr.token);
+		}
+		
+	    data.join(',');
+
+	g_processor.writeOutput(data + '');	
+	
+
+})(g_request, g_response, g_processor);]]></script>
+        <sys_class_name>sys_processor</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2016-01-10 12:41:04</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>66fa64724f749640102e00f18110c7ee</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_name>getAuthDetails</sys_name>
+        <sys_package display_value="ToDoNOW" source="x_9187_todo">461c38204fc8d200102e00f18110c71d</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="ToDoNOW">461c38204fc8d200102e00f18110c71d</sys_scope>
+        <sys_update_name>sys_processor_66fa64724f749640102e00f18110c7ee</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2016-01-29 16:50:34</sys_updated_on>
+        <type>script</type>
+    </sys_processor>
+</record_update>

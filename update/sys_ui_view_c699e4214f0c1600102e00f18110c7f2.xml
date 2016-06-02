@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_view">
+    <sys_ui_view action="INSERT_OR_UPDATE">
+        <group/>
+        <hidden>false</hidden>
+        <name>sys_popup,DeveloperStudio</name>
+        <roles/>
+        <sys_class_name>sys_ui_view</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2015-11-30 08:33:00</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>c699e4214f0c1600102e00f18110c7f2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Sys_popup,developerstudio</sys_name>
+        <sys_package display_value="ToDoNOW" source="x_9187_todo">461c38204fc8d200102e00f18110c71d</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="ToDoNOW">461c38204fc8d200102e00f18110c71d</sys_scope>
+        <sys_update_name>sys_ui_view_c699e4214f0c1600102e00f18110c7f2</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2015-11-30 08:33:00</sys_updated_on>
+        <title>Sys_popup,developerstudio</title>
+        <user/>
+    </sys_ui_view>
+</record_update>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="content_css">
+    <content_css action="INSERT_OR_UPDATE">
+        <name>newnav.css</name>
+        <style>    body,html{&#13;
+		height: 100%;&#13;
+	}&#13;
+&#13;
+.myselected{ &#13;
+background-color:whitesmoke;&#13;
+&#13;
+}&#13;
+	/* remove outer padding */&#13;
+	.main .row{&#13;
+		padding: 0px;&#13;
+		margin: 0px;&#13;
+	}&#13;
+&#13;
+	/*Remove rounded coners*/&#13;
+&#13;
+	nav.sidebar.navbar {&#13;
+		border-radius: 0px;&#13;
+	}&#13;
+&#13;
+	nav.sidebar, .main{&#13;
+		-webkit-transition: margin 200ms ease-out;&#13;
+	    -moz-transition: margin 200ms ease-out;&#13;
+	    -o-transition: margin 200ms ease-out;&#13;
+	    transition: margin 200ms ease-out;&#13;
+	}&#13;
+&#13;
+	/* Add gap to nav and right windows.*/&#13;
+	.main{&#13;
+		padding: 10px 10px 0 10px;&#13;
+	}&#13;
+&#13;
+	/* .....NavBar: Icon only with coloring/layout.....*/&#13;
+&#13;
+	/*small/medium side display*/&#13;
+	@media (min-width: 768px) {&#13;
+&#13;
+		/*Allow main to be next to Nav*/&#13;
+		.main{&#13;
+			position: absolute;&#13;
+			width: calc(100% - 40px); /*keeps 100% minus nav size*/&#13;
+			margin-left: 40px;&#13;
+			float: right;&#13;
+		}&#13;
+&#13;
+		/*lets nav bar to be showed on mouseover*/&#13;
+		nav.sidebar:hover + .main{&#13;
+			margin-left: 200px;&#13;
+		}&#13;
+&#13;
+		/*Center Brand*/&#13;
+		nav.sidebar.navbar.sidebar&gt;.container .navbar-brand, .navbar&gt;.container-fluid .navbar-brand {&#13;
+			margin-left: 0px;&#13;
+		}&#13;
+		/*Center Brand*/&#13;
+		nav.sidebar .navbar-brand, nav.sidebar .navbar-header{&#13;
+			text-align: center;&#13;
+			width: 100%;&#13;
+			margin-left: 0px;&#13;
+		}&#13;
+&#13;
+		/*Center Icons*/&#13;
+		nav.sidebar a{&#13;
+			padding-right: 13px;&#13;
+		}&#13;
+&#13;
+		/*adds border top to first nav box */&#13;
+		nav.sidebar .navbar-nav &gt; li:first-child{&#13;
+			border-top: 1px #e5e5e5 solid;&#13;
+		}&#13;
+&#13;
+		/*adds border to bottom nav boxes*/&#13;
+		nav.sidebar .navbar-nav &gt; li{&#13;
+			border-bottom: 1px #e5e5e5 solid;&#13;
+		}&#13;
+&#13;
+		/* Colors/style dropdown box*/&#13;
+		nav.sidebar .navbar-nav .open .dropdown-menu {&#13;
+			position: static;&#13;
+			float: none;&#13;
+			width: auto;&#13;
+			margin-top: 0;&#13;
+			background-color: transparent;&#13;
+			border: 0;&#13;
+			-webkit-box-shadow: none;&#13;
+			box-shadow: none;&#13;
+		}&#13;
+&#13;
+		/*allows nav box to use 100% width*/&#13;
+		nav.sidebar .navbar-collapse, nav.sidebar .container-fluid{&#13;
+			padding: 0 0px 0 0px;&#13;
+		}&#13;
+&#13;
+		/*colors dropdown box text */&#13;
+		.navbar-inverse .navbar-nav .open .dropdown-menu&gt;li&gt;a {&#13;
+			color: #777;&#13;
+		}&#13;
+&#13;
+		/*gives sidebar width/height*/&#13;
+		nav.sidebar{&#13;
+			width: 200px;&#13;
+			height: 100%;&#13;
+			margin-left: -160px;&#13;
+			float: left;&#13;
+			z-index: 8000;&#13;
+			margin-bottom: 0px;&#13;
+		}&#13;
+&#13;
+		/*give sidebar 100% width;*/&#13;
+		nav.sidebar li {&#13;
+			width: 100%;&#13;
+		}&#13;
+&#13;
+		/* Move nav to full on mouse over*/&#13;
+		nav.sidebar:hover{&#13;
+			margin-left: 0px;&#13;
+		}&#13;
+		/*for hiden things when navbar hidden*/&#13;
+		.forAnimate{&#13;
+			opacity: 0;&#13;
+		}&#13;
+	}&#13;
+&#13;
+	/* .....NavBar: Fully showing nav bar..... */&#13;
+&#13;
+	@media (min-width: 1330px) {&#13;
+&#13;
+		/*Allow main to be next to Nav*/&#13;
+		.main{&#13;
+			width: calc(100% - 200px); /*keeps 100% minus nav size*/&#13;
+			margin-left: 200px;&#13;
+		}&#13;
+&#13;
+		/*Show all nav*/&#13;
+		nav.sidebar{&#13;
+			margin-left: 0px ;&#13;
+			float: left ;&#13;
+		}&#13;
+		/*Show hidden items on nav*/&#13;
+		nav.sidebar .forAnimate{&#13;
+			opacity: 1;&#13;
+		}&#13;
+	}&#13;
+&#13;
+	nav.sidebar .navbar-nav .open .dropdown-menu&gt;li&gt;a:hover, nav.sidebar .navbar-nav .open .dropdown-menu&gt;li&gt;a:focus {&#13;
+		color: #CCC;&#13;
+		background-color: transparent;&#13;
+	}&#13;
+&#13;
+	nav:hover .forAnimate{&#13;
+		opacity: 1;&#13;
+	}&#13;
+	section{&#13;
+		padding-left: 15px;&#13;
+	}&#13;
+</style>
+        <sys_class_name>content_css</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2016-01-09 08:59:42</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>b92fead24ff85640102e00f18110c73a</sys_id>
+        <sys_mod_count>14</sys_mod_count>
+        <sys_name>newnav.css</sys_name>
+        <sys_package display_value="ToDoNOW" source="x_9187_todo">461c38204fc8d200102e00f18110c71d</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="ToDoNOW">461c38204fc8d200102e00f18110c71d</sys_scope>
+        <sys_update_name>content_css_b92fead24ff85640102e00f18110c73a</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2016-01-24 08:05:01</sys_updated_on>
+        <type>local</type>
+        <url/>
+    </content_css>
+</record_update>

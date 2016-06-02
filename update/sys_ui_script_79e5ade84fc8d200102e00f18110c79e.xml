@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_script">
+    <sys_ui_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <description>main module for App. this module bootsraps the entire app.</description>
+        <global>false</global>
+        <name>x_9187_todo.wunderlistapp</name>
+        <script><![CDATA[//this will be main module. everything gets injected here.
+var myApp = angular.module('wunderlist', ['ngAnimate', 'ui.bootstrap','mainCtrl','tasksCtrl','homeCtrl','userlistService','taskServices','ui.router'])
+
+//Unfortunately this code is useless because UI16 desnt have GlideAjax in main Window.
+// 	var ga;
+// 		var AuthData = [];
+// 	if(window.parent.GlideAjax ){
+// 		 ga = new window.parent.GlideAjax('getAccessToken');
+// 		 ga.setScope('x_9187_todo');
+// 		 ga.addParam('sysparm_name','getToken');
+// 		 ga.getXMLWait();
+// 		 AuthData = ga.getAnswer().split(',');
+// 		console.log(ga.getAnswer());
+		 
+// 		console.log(AuthData[0]);
+// 		if(AuthData.length > 1){
+// 			$rootScope.loggedin = 'true';
+// 			alert('loggedin');
+// 		}
+// 		else{
+// 			alert('fuck ui 16');
+// 			$rootScope.loggedin = 'false';
+// 		}
+
+    
+// 	}
+// 	else{
+// 		alert('no GlideAjax present :(');
+// 	}
+
+
+//set httpheaders here so that we can make http calls without setting headers in services.
+.factory('httpRequestInterceptor', function ($rootScope){
+	       var token;
+	       var clientID;
+	       var instanceUrl;
+	//jQuery comes to the Rescue. jQuery.ajax is simillar to $http of angular. we can not use $http service as they gets instantiated after config.
+	       if(jQuery){
+           jQuery.ajax({url: "dev12985.service-now.com/x_9187_todo_getauthdetails.do", async: false,
+	     	success: function(response){
+			
+			
+       var AuthData = response.split(',');
+		if(AuthData.length > 2){ //length will be 2 if there is userToken for loggedin user.
+			$rootScope.loggedin = 'true'; //if not then redirect to wunderlist login page.
+			instanceUrl = AuthData[0];  
+			clientID = AuthData[1];
+			token = AuthData[2];
+			
+			//we need this two in homepage.storing it in $rootScope so that we can access later.
+			$rootScope.instanceUrl = AuthData[0];
+		    $rootScope.clientID = AuthData[1];
+		 	
+		}
+		else{//no userToken present. but we still need ClientId and InstanceUrl.
+			$rootScope.instanceUrl = AuthData[0];  
+			$rootScope.clientID = AuthData[1];	
+			}
+    }});
+	}
+
+   return {
+     request: function (config) {
+
+//       // use this to destroying other existing headers
+//      // config.headers = {'Authentication':'authentication'};
+
+//       // use this to prevent destroying other existing headers
+       config.headers['X-Access-Token'] = token; 
+	   config.headers['X-Client-ID'] =clientID;    
+		
+      return config;
+    }
+	  
+  };
+})
+
+.config(function ($httpProvider) {
+	
+  $httpProvider.interceptors.push('httpRequestInterceptor');
+})
+.config(function($urlRouterProvider,$stateProvider){
+   
+	//$urlRouterProvider.otherwise('/');
+	 $stateProvider.state("Default", {});
+	$stateProvider
+	.state('home',{
+		url:'/',
+		templateUrl:"x_9187_todo_home.do",
+		controller: 'homeController',
+		controllerAs:'home'
+	})
+	.state('list',{
+		url:'/list/{listId:[0-9]{1,9}}',
+		templateUrl:"x_9187_todo_tasks.do",
+		controller: 'tasksController',
+		controllerAs:'tasks'
+	});
+})
+;
+
+]]></script>
+        <script_name>wunderlistapp</script_name>
+        <sys_class_name>sys_ui_script</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2015-11-27 10:22:57</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>79e5ade84fc8d200102e00f18110c79e</sys_id>
+        <sys_mod_count>202</sys_mod_count>
+        <sys_name>x_9187_todo.wunderlistapp</sys_name>
+        <sys_package display_value="ToDoNOW" source="x_9187_todo">461c38204fc8d200102e00f18110c71d</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="ToDoNOW">461c38204fc8d200102e00f18110c71d</sys_scope>
+        <sys_update_name>sys_ui_script_79e5ade84fc8d200102e00f18110c79e</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2016-01-29 17:32:56</sys_updated_on>
+        <use_scoped_format>false</use_scoped_format>
+    </sys_ui_script>
+</record_update>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="content_css">
+    <content_css action="INSERT_OR_UPDATE">
+        <name>basicTheme.css</name>
+        <style>.jumbotron{&#13;
+background-color: #cccccc;&#13;
+}&#13;
+    .responsive-image{&#13;
+        height:auto;&#13;
+        width:100%;&#13;
+    }&#13;
+.well.well-sm {&#13;
+/*&#13;
+-webkit-transition: all 0.2s ease-in-out;&#13;
+  -moz-transition: all 0.2s ease-in-out;&#13;
+  -o-transition: all 0.2s ease-in-out;&#13;
+  transition: all 0.2s ease-in-out;&#13;
+*/&#13;
+}&#13;
+.well.well-sm a {&#13;
+    color: #1A1D1F !important;&#13;
+    text-decoration: none !important;&#13;
+}&#13;
+.well.well-sm &gt; div {&#13;
+   outline:none !important;&#13;
+}&#13;
+.well.well-sm a {&#13;
+    background-color: transparent !important;&#13;
+}&#13;
+.well.well-sm:hover {&#13;
+background-color:#333 !important;&#13;
+}&#13;
+.well.well-sm:hover a {&#13;
+color:#fff !important;&#13;
+}&#13;
+.well.well-sm&gt;div {&#13;
+outline:none !important;&#13;
+}&#13;
+.well.well-sm:hover a:hover {&#13;
+color:white !important;&#13;
+}&#13;
+.well.well-sm:hover .fa{&#13;
+color: #DACD24  !important;&#13;
+}&#13;
+.well.well-sm:hover .fa.fa-star{&#13;
+color: #EFE346 !important;&#13;
+}&#13;
+.well.well-sm .fa.fa-star{&#13;
+color:#DACD24;&#13;
+}&#13;
+.well.well-sm {&#13;
+    background-color: #F3F3F3 !important;&#13;
+    cursor: hand !important;&#13;
+}&#13;
+.well.well-sm.completed {&#13;
+ opacity:0.6;&#13;
+}&#13;
+.well.well-sm.completed a{&#13;
+ &#13;
+text-decoration:line-through !important;&#13;
+}&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+a.tooltips {&#13;
+  position: relative;&#13;
+  display: inline;&#13;
+}&#13;
+a.tooltips span.tooltoptext {&#13;
+  position: absolute;&#13;
+  width:240px;&#13;
+  color: #FFFFFF;&#13;
+  background: #000000;&#13;
+  height: 120px;&#13;
+&#13;
+  text-align: left;&#13;
+  visibility: hidden;&#13;
+  border-radius: 13px;&#13;
+  box-shadow: 1px 0px 0px #800000;&#13;
+  padding-left: 10px;&#13;
+  padding-top: 10px;&#13;
+}&#13;
+a.tooltips span.tooltoptext:after {&#13;
+  content: '';&#13;
+  position: absolute;&#13;
+  top: 50%;&#13;
+  right: 100%;&#13;
+  margin-top: -8px;&#13;
+  width: 0; height: 0;&#13;
+  border-right: 8px solid #000000;&#13;
+  border-top: 8px solid transparent;&#13;
+  border-bottom: 8px solid transparent;&#13;
+}&#13;
+a:hover.tooltips span.tooltoptext {&#13;
+  visibility: visible;&#13;
+  opacity: 0.8;&#13;
+  left: 100%;&#13;
+  top: 50%;&#13;
+  margin-top: -42px;&#13;
+  margin-left: 15px;&#13;
+  z-index: 999;&#13;
+}</style>
+        <sys_class_name>content_css</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2016-01-24 07:25:16</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>b129a78b4f091e40102e00f18110c7de</sys_id>
+        <sys_mod_count>37</sys_mod_count>
+        <sys_name>basicTheme.css</sys_name>
+        <sys_package display_value="ToDoNOW" source="x_9187_todo">461c38204fc8d200102e00f18110c71d</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="ToDoNOW">461c38204fc8d200102e00f18110c71d</sys_scope>
+        <sys_update_name>content_css_b129a78b4f091e40102e00f18110c7de</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2016-01-29 13:31:03</sys_updated_on>
+        <type>local</type>
+        <url/>
+    </content_css>
+</record_update>

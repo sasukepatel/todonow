@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_script">
+    <sys_ui_script action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <description>Controller for main page</description>
+        <global>false</global>
+        <name>x_9187_todo.mainCtrl</name>
+        <script><![CDATA[angular.module('mainCtrl', [])
+
+.controller('mainController',function($http,userlistService,$rootScope,$state,$log){
+	var main = this;
+
+    var lists = [];
+	 main.user = {};
+	
+	 main.loggedin = $rootScope.loggedin;
+	
+		$state.go('home');
+	
+	if(main.loggedin){
+		$log.info('loggedin');
+		
+		//GET User info to show in left nav.
+	userlistService.getuser().then(function(data){
+			main.user = data;
+			
+			
+		},function(response){
+			
+		$log.warn(response.data.error.message);
+		});
+	
+		//GET Lists to show in left nav.
+	userlistService.getLists().then(function(data){
+			main.lists = data;
+		
+		},function(response){
+			$log.warn(response.data.error.message);
+		});
+	
+	}
+})
+;]]></script>
+        <script_name>mainCtrl</script_name>
+        <sys_class_name>sys_ui_script</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2015-12-05 09:06:26</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>3d10ae4b4f089600102e00f18110c790</sys_id>
+        <sys_mod_count>57</sys_mod_count>
+        <sys_name>x_9187_todo.mainCtrl</sys_name>
+        <sys_package display_value="ToDoNOW" source="x_9187_todo">461c38204fc8d200102e00f18110c71d</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="ToDoNOW">461c38204fc8d200102e00f18110c71d</sys_scope>
+        <sys_update_name>sys_ui_script_3d10ae4b4f089600102e00f18110c790</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2016-01-29 17:03:59</sys_updated_on>
+        <use_scoped_format>false</use_scoped_format>
+    </sys_ui_script>
+</record_update>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script/>
+        <description>Home page for application.</description>
+        <direct>true</direct>
+        <endpoint>x_9187_todo_home.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	
+  <div ng-if="!home.isloggedin" class="jumbotron text-center">
+    <div class="container">
+	    <img class="responsive-image" src="snowwunderlogo.jpg" width="691" height="256"/>
+      <h1>Welcome to WunderList App</h1>
+	  <p>Ahh!you are using it for the First time! click below to  login/signup  to WunderList Once and we will take care of it everytime.</p>
+		<p style="align:center"><a class="btn btn-success btn-lg" href="{{home.redirectUrl}}" >Login/Signup</a></p>
+    </div>
+  </div>
+	<div>
+		
+	<!--******ERROR MESSAGES****** -->
+	
+			<hr/>
+			<div id="todosuccess"  class="alert alert-success alert-dismissible" hidden="true" role="alert">
+  <button  type="button" class="close" ng-click="home.hidealerts()"  aria-label="Close"><span  aria-hidden="true">X</span></button>
+  ToDO Added Successfully.</div>
+		<div id="todofailure"  class="alert alert-danger alert-dismissible" hidden="true" role="alert">
+  <button  type="button" class="close" ng-click="home.hidealerts()"   aria-label="Close"><span  aria-hidden="true">X</span></button>
+  Error While Adding.Please Try again.</div>
+         <div ng-show="home.listSuccess"   class="alert alert-success alert-dismissible" role="alert">
+  <button  type="button" class="close"  aria-label="Close"><span  aria-hidden="true">X</span></button>
+  List Added Successfully.Reloading!!</div>
+
+			<hr/>
+		<div ng-if="home.isloggedin">
+		
+			<!-- *****ADD A TODO****** -->
+		<div   class="well">
+			<div><h3 style="text-decoration: underline;
+    margin-top: inherit;font-family: cursive;">TODO</h3></div>
+			<hr/>
+ <form  name ="addtask" ng-submit="home.addTask()">
+    <div class="form-horizontal">
+	  <div class="form-group">
+		
+	    <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-plus"></i></div>
+	    <input class="form-control input-lg" ng-model="home.newTask.title" required="true"  type="text" placeholder="Add a todo..."></input>
+        <select class="form-control" ng-model="home.selectedList"
+  ng-options="list.id as list.title for list in home.lists" >
+       <option style="display:none" value="">select a List</option>
+        </select>
+		<div class="input-group-addon"><button type="submit" class="btn btn-primary">Add</button></div>
+		</div>
+	  </div>
+    </div>
+ </form>
+		
+	</div>
+		
+		<!-- *****ADD A LIST****** -->
+		<div class="well">
+			<div><h3 style="text-decoration: underline;
+    margin-top: inherit;font-family: cursive;">LIST</h3></div>
+			<hr/>
+ <form  name ="addList" ng-submit="home.addList()">
+    <div class="form-horizontal">
+	  <div class="form-group">
+		<div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-plus"></i></div>
+	   <input class="form-control input-lg" ng-model="home.listTitle" required="true"   type="text" placeholder="Add a new List..."></input>
+		<div class="input-group-addon"><button type="submit"  class="btn btn-primary">Add</button></div>
+		</div>
+	  </div>
+	</div>
+ </form>
+</div>
+	</div>
+	
+	</div>
+</j:jelly>]]></html>
+        <name>home</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin_SHARE</sys_created_by>
+        <sys_created_on>2016-01-09 10:37:42</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>32b58f9e4ff85640102e00f18110c73e</sys_id>
+        <sys_mod_count>77</sys_mod_count>
+        <sys_name>home</sys_name>
+        <sys_package display_value="ToDoNOW" source="x_9187_todo">461c38204fc8d200102e00f18110c71d</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="ToDoNOW">461c38204fc8d200102e00f18110c71d</sys_scope>
+        <sys_update_name>sys_ui_page_32b58f9e4ff85640102e00f18110c73e</sys_update_name>
+        <sys_updated_by>admin_SHARE</sys_updated_by>
+        <sys_updated_on>2016-01-29 17:21:39</sys_updated_on>
+    </sys_ui_page>
+</record_update>
